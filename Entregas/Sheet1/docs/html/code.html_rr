@@ -1,0 +1,56 @@
+filetype(module).
+main_title([[]]).
+sect([level(0)],global_label("code"),string_esc("code")).
+refs_link(codefulltoc).
+sect([level(2)],local_label("Usage and interface"),string_esc("Usage and interface")).
+idx(use,code,localnum_label("0"),"author_data/4").
+idx(use,code,localnum_label("1"),"elimina/2").
+idx(use,code,localnum_label("2"),"hermano/2").
+idx(use,code,localnum_label("3"),"padre/2").
+idx(use,code,localnum_label("4"),"hijo/2").
+idx(use,code,localnum_label("5"),"abuela/2").
+idx(use,code,localnum_label("6"),"tio/2").
+idx(use,code,localnum_label("7"),"cunyado/2").
+idx(use,code,localnum_label("8"),"madre/2").
+idx(use,code,localnum_label("9"),[6,99,97,108,108,95,105,110,95,109,111,100,117,108,101,47,50]).
+sect([level(2)],local_label("Documentation on exports"),string_esc("Documentation on exports")).
+idx(def,pred,local_label("author_data/4"),"author_data/4").
+idx(def,pred,local_label("elimina/2"),"elimina/2").
+idx(def,pred,local_label("hermano/2"),"hermano/2").
+idx(def,pred,local_label("padre/2"),"padre/2").
+idx(def,pred,local_label("hijo/2"),"hijo/2").
+idx(def,pred,local_label("abuela/2"),"abuela/2").
+idx(def,pred,local_label("tio/2"),"tio/2").
+idx(def,pred,local_label("cunyado/2"),"cunyado/2").
+idx(def,pred,local_label("madre/2"),"madre/2").
+sect([level(2)],local_label("Documentation on multifiles"),string_esc("Documentation on multifiles")).
+idx(def,pred,local_label([6,99,97,108,108,95,105,110,95,109,111,100,117,108,101,47,50]),[6,99,97,108,108,95,105,110,95,109,111,100,117,108,101,47,50]).
+sect([level(2)],local_label("Documentation on imports"),string_esc("Documentation on imports")).
+idx(use,code,localnum_label("10"),"operators").
+idx(use,code,localnum_label("11"),"dcg_phrase_rt").
+idx(use,code,localnum_label("12"),"datafacts_rt").
+idx(use,code,localnum_label("13"),"dynamic_rt").
+idx(use,code,localnum_label("14"),"classic_predicates").
+idx(use,code,localnum_label("15"),"term_basic").
+idx(use,code,localnum_label("16"),"arithmetic").
+idx(use,code,localnum_label("17"),"atomic_basic").
+idx(use,code,localnum_label("18"),"basiccontrol").
+idx(use,code,localnum_label("19"),"exceptions").
+idx(use,code,localnum_label("20"),"term_compare").
+idx(use,code,localnum_label("21"),"term_typing").
+idx(use,code,localnum_label("22"),"debugger_support").
+idx(use,code,localnum_label("23"),"hiord_rt").
+idx(use,code,localnum_label("24"),"stream_basic").
+idx(use,code,localnum_label("25"),"io_basic").
+idx(use,code,localnum_label("26"),"runtime_control").
+idx(use,code,localnum_label("27"),"prelude").
+idx(use,code,localnum_label("28"),"initial").
+idx(use,code,localnum_label("29"),"condcomp").
+idx(use,code,localnum_label("30"),"default").
+idx(use,code,localnum_label("31"),"classic").
+idx(use,code,localnum_label("32"),"runtime_ops").
+idx(use,code,localnum_label("33"),"dcg").
+idx(use,code,localnum_label("34"),"dcg/dcg_phrase").
+idx(use,code,localnum_label("35"),"dynamic").
+idx(use,code,localnum_label("36"),"datafacts").
+refs_link(codesearch).
