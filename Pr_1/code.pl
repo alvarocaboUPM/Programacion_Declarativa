@@ -1,4 +1,4 @@
-:- module(PR1, [author_data/4, color/1, rule/5, cells/3, evol/3], [assertions]).
+:- module(PR1, [author_data/4, color/1, rule/5, cells/3, evol/3], [iso_strict,assertions]).
 :- use_module(library(unittest)).
 
 author_data('Cabo', 'Ciudad', 'Alvaro', '200172').
@@ -76,14 +76,14 @@ evolve([X,Y,Z|Rest], Rules, [S|NewRest]) :-
     evolve([Y,Z|Rest], Rules, NewRest).
 
 % Ejercicio 2: N-Evolución de la cinta
-:- pred evol(N, Rules, Evolution)
+:- pred evol(N, Rules, Cells)
 #"Aplies @var{N} steps of the evolution starting at @tt{[o,x,o]}".
 
-evol(0,_,[o,x,o]). %Caso base
-evol(s(N), Rules, Cells):-
-    N \= s(0),
-    cells(Evolution, Rules, Cells),
-    evol(N, Rules, Evolution).
+evol(0,_,[o,x,o]). % Caso base
+evol(s(N), Rules, Cells) :-
+    evol(N, Rules, Evolution),
+    cells(Evolution, Rules, Cells).
+    %write(Evolution), nl. % DEBUG 
 
 
 % ######################## TESTING ######################## %
