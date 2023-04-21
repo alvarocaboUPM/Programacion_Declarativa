@@ -8,7 +8,7 @@ author_data('Cabo', 'Ciudad', 'Alvaro', '200172').
 :- doc(author, "ALVARO CABO CIUDAD").
 :- doc(module, "Modelado de un autómata celular 1D en Ciao-Prolog
 
-@section{Predicados auxiliares dados}
+@section{Predicados auxiliares}
 @subsection{Color}
 Stablishes valid colors/states for the cells
 @includedef{color/1}
@@ -22,11 +22,58 @@ Example usage:
   Y = o.
 @end{verbatim}
 
-@section{Tests}
-Included at the end of the document all the @tt{:- test} assertions.
+@section{Testing}
+Included at the end of the document all the @tt{:- test} assertions.\n
 @includedef{test/1}
-Se utiliza siempre el mismo ruleset @tt{r(x,x,o,x,o,x,o)} para estar en sintonía con 
-el testing de deliverit
+@bf{Note: } Every unit test uses @tt{r(x,x,o,x,o,x,o)} as its ruleset, just as Deliverit
+
+@subsection{Running the tests}
+Testing can be run using the ciao console or using the integrated Ciao
+debugger on Emacs
+@begin{verbatim}
+    Example of usage:
+    ?-  use_module(library(unittest)).
+        yes
+    ?- run_tests_in_module('/home/varo/UPM/3ero/ProDec/Pr_1/code.pl').
+
+    PASSED: (lns 123-126) cells/3.
+    PASSED: (lns 127-128) cells/3.
+    PASSED: (lns 129-129) cells/3.
+    PASSED: (lns 130-130) cells/3.
+    PASSED: (lns 131-135) evol/3.
+    PASSED: (lns 136-136) evol/3.
+    FAILED: (lns 137-139) steps/2. 
+    (lns 137-139) steps(_1,_) run-time check failure
+    Requires in *success*: 
+        _1=[_,_,_,_,_].
+    But instead:
+        _1=[_,o,o,o,o,o]
+        _=_2
+        _=_1
+        _=_3
+        _=_4
+        _=_5
+    FAILED: (lns 140-140) steps/2. 
+    (lns 140-140) steps(_1,_) run-time check failure.
+    Requires in *success*: 
+        _1=[_,_,_,_,_,_,_].
+    But instead:
+        _1=[_,o,o,o,o,o,o,o]
+        _=_2
+        _=_1
+        _=_3
+        _=_4
+        _=_5
+        _=_6
+        _=_7
+
+Note: {Total:
+Passed: 6 (75.00'%') Failed: 2 (25.00'%') Precond Failed: 0 (0.00'%') Aborted: 0 (0.00'%') Timeouts: 0 (0.00'%') Total: 8 Run-Time Errors: 2
+}
+
+yes
+?- 
+@end{verbatim}
 
 @subsection{cells/3 tests}
 @bf{Test basico}
@@ -35,7 +82,8 @@ el testing de deliverit
 @end{verbatim}
 @bf{Test largo}
 @begin{verbatim}
-:- test cells(I,R,F) : (I = [o,x,x,x,o,o,o,x,o,o,x,x,o,x,x,x,x,o,x,x,o], R=r(x,x,o,x,o,x,o)) 
+:- test cells(I,R,F) : (I = [o,x,x,x,o,o,o,x,o,o,x,x,o,x,x,x,x,o,x,x,o], 
+                        R=r(x,x,o,x,o,x,o)) 
                         => (C=[o,o,x,o,o,x,o,o,x,x,o,x,o,x,x,o,o,o,x,x,o,x,o])
 @end{verbatim}
 @bf{Test inverso}
@@ -46,6 +94,12 @@ el testing de deliverit
 @begin{verbatim}
 :- test cells(I,R,F) : (I = [o,x,o,o,o,o,x,x,x,o,o,x,o,x,o],
     F= [o,o,x,x,o,o,o,x,o,o,x,o,x,x,x,x,o]) => R=r(x,x,o,x,o,x,o) 
+@end{verbatim}
+
+@subsection{evol/3 tests}
+@bf{Test basico}
+@begin{verbatim}
+:- test evol(N,R,C) : (N = 0, R=r(x,x,o,x,o,x,o)) => (C=[o,x,o])
 @end{verbatim}
 ").
 
@@ -71,7 +125,7 @@ rule(x,x,x,r(_,_,_,_,_,_,G),G) :- color(G).
 % Ejercicio 1: Evolucionador de células
 :- pred cells(+InitialState, +Rules, -FinalState)
 #"Verifies whether @var{InitialState} is a valid list of cells that can be evolved according to the given @var{Rules}. 
-If so, the predicate binds @var{FinalState} to the resulting evolved state.".
+If so, the predicate binds @var{FinalState} to the resulting evolved state. @includedef{cells/3}".
 
 cells([o, X|Rest], Rules, [o,S|FinalState]) :-
     rule(o,o,X, Rules, S), 
@@ -87,21 +141,20 @@ evolve([X,Y,Z|Rest], Rules, [S|NewRest]) :-
 
 % Ejercicio 2: N-Evolución de la cinta
 :- pred evol(+N, +Rules, -Cells)
-#"Aplies @var{N} steps of the evolution starting at @tt{[o,x,o]}".
+#"Aplies @var{N} steps of the evolution starting at @tt{[o,x,o]} @includedef{evol/3}".
 
 evol(0,_,[o,x,o]). % Caso base
 evol(s(N), Rules, Cells) :-
     evol(N, Rules, Evolution),
-    cells(Evolution, Rules, Cells).
-    %write(Evolution), nl. % DEBUG 
+    cells(Evolution, Rules, Cells). 
 
 % Ejercicio 3: Descrubir autómatas
 :- pred steps(+Cells, -N)
-#"Returns the @var{N} steps necessary to get from the intial state @tt{[o,x,o]} to @var{Cells}".
+#"Returns the @var{N} steps necessary to get from the intial state @tt{[o,x,o]} to @var{Cells} @includedef{steps/3}".
 
-steps([o,x,o], 0).
+steps([_,_,_], 0).
 steps([_|T], s(N)):-
-    evol(N,_,T).
+    evol(s(N),_,T).
 
 :- pred ruleset(RuleSet, Cells)
 #"Returns valid @var{Cells} using @var{RuleSet} starting at the intial state @tt{[o,x,o]} to".
@@ -114,7 +167,7 @@ ruleset(_, [o,x,o]).
 :- test cells(I,R,F) : (I = [o,x,x,x,o,o,o,x,o,o,x,x,o,x,x,x,x,o,x,x,o], R=r(x,x,o,x,o,x,o)) 
                             => (C=[o,o,x,o,o,x,o,o,x,x,o,x,o,x,x,o,o,o,x,x,o,x,o]) #"@includedef{test/1}".
 :- test cells(I,R,F) : (C = [o,o,x,x,o,o,o,x,o,o,x,o,x,x,x,x,o], R=r(x,x,o,x,o,x,o)) #"@includedef{test/1}".
-:- test cells(I,R,F) : (I = [o,x,o,o,o,o,x,x,x,o,o,x,o,x,o],F= [o,o,x,x,o,o,o,x,o,o,x,o,x,x,x,x,o]) => R=r(x,x,o,x,o,x,o) #"@includedef{test/1}".
+:- test cells(I,R,F) : (I = [o,x,o,o,o,o,x,x,x,o,o,x,o,x,o],F= [o,o,x,x,o,o,o,x,o,o,x,o,x,x,x,x,o]) => (R=r(x,x,o,x,o,x,o)) #"@includedef{test/1}".
 
 
 % EVOL
@@ -123,4 +176,5 @@ ruleset(_, [o,x,o]).
 :- test evol(N,R,C) : (N = s(0), R=r(x,x,o,x,o,x,o)) #"@includedef{test/1}".
 
 % STEPS
-:- test steps(C,N) : (N = s(s(0)), R=r(x,x,o,x,o,x,o)) #"@includedef{test/1}".
+:- test steps(C,N) : (N = s(0))    => (C=[_,_,_,_,_])     #"@includedef{test/1}".
+:- test steps(C,N) : (N = s(s(0))) => (C=[_,_,_,_,_,_,_]) #"@includedef{test/1}".
