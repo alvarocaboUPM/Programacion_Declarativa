@@ -6,14 +6,14 @@ author_data('Cabo', 'Ciudad', 'Alvaro', '200172').
 :- doc(title, "Practica 1 - Programacion logica pura").
 
 :- doc(author, "ALVARO CABO CIUDAD").
-:- doc(module, "Modelado de un autómata celular 1D en Ciao-Prolog
+:- doc(module, "1D cellular Automata modeling in Ciao Prolog
 
-@section{Predicados auxiliares}
+@section{Aux predicates}
 @subsection{Color}
 Stablishes valid colors/states for the cells
 @includedef{color/1}
 
-@subsection{Reglas}
+@subsection{Rules}
 Defines valid rules and returns the result of the iteration
 @begin{verbatim}
 Example usage:
@@ -76,32 +76,47 @@ yes
 @end{verbatim}
 
 @subsection{cells/3 tests}
-@bf{Test basico}
+@bf{Basic Test}
 @begin{verbatim}
 :- test cells(I,R,F) : (I = [o,x,o], R=r(x,x,o,x,o,x,o)) => (C=[o,o,x,x,o])
 @end{verbatim}
-@bf{Test largo}
+@bf{Long Test}
 @begin{verbatim}
 :- test cells(I,R,F) : (I = [o,x,x,x,o,o,o,x,o,o,x,x,o,x,x,x,x,o,x,x,o], 
                         R=r(x,x,o,x,o,x,o)) 
                         => (C=[o,o,x,o,o,x,o,o,x,x,o,x,o,x,x,o,o,o,x,x,o,x,o])
 @end{verbatim}
-@bf{Test inverso}
+@bf{Reverse-order Test}
 @begin{verbatim}
 :- test cells(I,R,F) : (C = [o,o,x,x,o,o,o,x,o,o,x,o,x,x,x,x,o], R=r(x,x,o,x,o,x,o))
 @end{verbatim}
-@bf{Test inferencia de ruleset}
+@bf{Ruleset inference Test}
 @begin{verbatim}
 :- test cells(I,R,F) : (I = [o,x,o,o,o,o,x,x,x,o,o,x,o,x,o],
     F= [o,o,x,x,o,o,o,x,o,o,x,o,x,x,x,x,o]) => R=r(x,x,o,x,o,x,o) 
 @end{verbatim}
 
 @subsection{evol/3 tests}
-@bf{Test basico}
+@bf{Basic Test}
 @begin{verbatim}
 :- test evol(N,R,C) : (N = 0, R=r(x,x,o,x,o,x,o)) => (C=[o,x,o])
 @end{verbatim}
+@bf{Advanced Test}
+@begin{verbatim}
+:- test evol(N,R,C) : (N = s(0), R=r(x,x,o,x,o,x,o))
+@end{verbatim}
+
+@subsection{steps/2 tests}
+@bf{Basic Test}
+@begin{verbatim}
+:- test steps(C,N) : (N = s(0))    => (C=[_,_,_,_,_])
+@end{verbatim}
+@bf{Advanced Test}
+@begin{verbatim}
+:- test steps(C,N) : (N = s(s(0))) => (C=[_,_,_,_,_,_,_])
+@end{verbatim}
 ").
+
 
 :- pred color(X)
    #"Binary representation where @var{X} is either x or o. @includedef{color/1}".
@@ -176,5 +191,5 @@ ruleset(_, [o,x,o]).
 :- test evol(N,R,C) : (N = s(0), R=r(x,x,o,x,o,x,o)) #"@includedef{test/1}".
 
 % STEPS
-:- test steps(C,N) : (N = s(0))    => (C=[_,_,_,_,_])     #"@includedef{test/1}".
+:- test steps(C,N) : (N = s(0))    => (C=[_,_,_,_,_]) #"@includedef{test/1}".
 :- test steps(C,N) : (N = s(s(0))) => (C=[_,_,_,_,_,_,_]) #"@includedef{test/1}".
