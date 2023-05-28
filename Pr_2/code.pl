@@ -154,6 +154,31 @@ debugger on Emacs
 
    @end{verbatim}
 
+@subsection{generar_recorrido/6 tests}
+   @bf{Basic Test}
+   @begin{verbatim}
+   :- test  generar_recorrido(1, 3, [], [], [], 0) => (Recorrido = [], FinalValue = 0).
+   
+   @end{verbatim}
+
+   @bf{Advanced Test}
+   @begin{verbatim}
+   :- test generar_recorrido(1, 3, [(1, 'Op', 5, [])], ['Op'], [(1, 'Op', 5, 5)], 5) =>
+   (Recorrido = [(1, 'Op', 5, 5)], FinalValue = 5).
+
+   @end{verbatim}
+
+@subsection{generar_recorridos/6 tests}
+   @bf{Advanced Test}
+   @begin{verbatim}
+   :- test   generar_recorridos(3, [(1, 'Op', 5, []), (2, 'Op2', 10, [])], ['Op', 'Op2'], [(1, 'Op', 5, 5)], 5) =>
+   (Recorrido = [(1, 'Op', 5, 5)], Valor = 5).
+
+   @end{verbatim}
+
+
+% GENERAR RECORRIDOS
+
 
 ").
 
